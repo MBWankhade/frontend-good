@@ -37,35 +37,35 @@ const AddQuestions = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(localStorage.getItem('token'))
+    console.log(localStorage.getItem('token'));
     const formData = new FormData();
     formData.append('question', question);
     options.forEach((element, index) => {
       formData.append(`options[${index}]`, element);
     });
     formData.append('imageSolution', solutionPdf); // Updated field name to match backend
-    
-    fetch(`${backendURL}/admin/addQuestion`, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
+
+    try {
+      const response = await fetch(`${backendURL}/admin/addQuestion`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      const data = await response.json();
       console.log('Response:', data);
       alert('Question Added Successfully');
       // Handle success, update UI or show a success message
-    })
-    .catch(error => {
+    } catch (error) {
       console.error('Error:', error);
       // Handle error, show an error message, etc.
-    });
-    console.log('Submitted:', { question, options, solutionPdf });
+    }
 
+    console.log('Submitted:', { question, options, solutionPdf });
   };
 
   return (
