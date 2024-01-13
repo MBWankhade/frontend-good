@@ -39,6 +39,11 @@ const Questions = () => {
       });
   }
 
+  const makeLinksClickable = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+  };
+
   React.useEffect(() => {
     let token = localStorage.getItem('token');
     if (token) {
@@ -108,7 +113,7 @@ const Questions = () => {
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
               }}
             >
-              <Typography variant='h5'>{questionData.question}</Typography>
+              <Typography variant='h5' dangerouslySetInnerHTML={{ __html: makeLinksClickable(questionData.question) }} />
               <div style={{ margin: '20px' }}>
                 {questionData.options.map((option, index) => (
                   <div key={questionData.id} style={{ marginBottom: '10px' }}>
