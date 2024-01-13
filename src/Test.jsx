@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Typography, Button } from '@mui/material';
 
-const backendURL = 'https://backend-daily.onrender.com';
+const backendURL = 'https://backend-platform-oxxu.onrender.com';
 
 const Test = () => {
   const [isLoading, setisLoading] = useState(true);
