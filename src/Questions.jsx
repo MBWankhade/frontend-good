@@ -97,7 +97,7 @@ const Questions = () => {
         </div>
       ) : (
         <>
-          {que.map((questionData, index) => (
+          {que.slice().reverse().map((questionData, index) => (
             <div
               key={index}
               style={{
