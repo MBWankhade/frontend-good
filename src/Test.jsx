@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Typography, Button } from '@mui/material';
 
-const backendURL = 'https://backend-platform-oxxu.onrender.com';
+const backendURL = 'https://backend-daily.onrender.com';
 
 const Test = () => {
   const [isLoading, setisLoading] = useState(true);
@@ -36,29 +36,33 @@ const Test = () => {
       });
   }, []);
 
+  const makeLinksClickable = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+  };
+
   return (
     <div style={{ padding: '20px' }}>
       <Typography
-  variant='h4'
-  style={{
-    marginBottom: '20px',
-    textAlign: 'center',
-    color: '#1976D2',
-    fontFamily: 'cursive',
-    fontWeight: 'bold',
-    letterSpacing: '1px',
-    lineHeight: '1.5',
-  }}
->
-  Seize the advantage! While others sleep, unlock your potential with the ultimate test experience. Stay ahead of the curve – the journey to success begins now!
-</Typography>
-
+        variant='h4'
+        style={{
+          marginBottom: '20px',
+          textAlign: 'center',
+          color: '#1976D2',
+          fontFamily: 'cursive',
+          fontWeight: 'bold',
+          letterSpacing: '1px',
+          lineHeight: '1.5',
+        }}
+      >
+        Seize the advantage! While others sleep, unlock your potential with the ultimate test experience. Stay ahead of the curve – the journey to success begins now!
+      </Typography>
 
       {isLoading ? (
         <CircularProgress color='secondary' />
       ) : (
         <>
-          {que.slice().reverse().map((questionData, index) => (
+          {que.map((questionData, index) => (
             <div
               key={index}
               style={{
@@ -69,7 +73,10 @@ const Test = () => {
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
               }}
             >
-              <Typography variant='h5'>{questionData.question}</Typography>
+              <Typography
+                variant='h5'
+                dangerouslySetInnerHTML={{ __html: makeLinksClickable(questionData.question) }}
+              />
               <div style={{ margin: '20px' }}>
                 {questionData.options.map((option, index) => (
                   <div key={questionData.id} style={{ marginBottom: '10px' }}>
