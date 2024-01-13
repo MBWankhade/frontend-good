@@ -58,7 +58,7 @@ const Test = () => {
         <CircularProgress color='secondary' />
       ) : (
         <>
-          {que.map((questionData, index) => (
+          {que.slice().reverse().map((questionData, index) => (
             <div
               key={index}
               style={{
