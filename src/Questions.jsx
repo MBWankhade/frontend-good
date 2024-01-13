@@ -11,43 +11,47 @@ const Questions = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [que, setQue] = useState([]);
 
-  const handleDeleteQuestion = (e)=>{
-    console.log(e);
+  const handleDeleteQuestion = (e) => {
     const queId = e.currentTarget.getAttribute('data-key');
-    console.log(queId)
     fetch(`${backendURL}/admin/deleteQuestions/${queId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
-      }
+      },
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json(); // You can use response.text() or other methods based on the server response format
+        return response.json();
       })
-      .then(data => {
-        // Handle the data returned by the server
+      .then((data) => {
         setQue((prevQue) => prevQue.filter((question) => question._id !== queId));
         console.log('Success:', data);
       })
-      .catch(error => {
-        // Handle errors during the fetch
+      .catch((error) => {
         console.error('Error:', error);
       });
-  }
+  };
 
-  const makeLinksClickable = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+  const renderQuestion = (questionData) => {
+    const questionContent = questionData.question;
+
+    // Regular expression to find links in the text
+    const linkRegex = /(https?:\/\/[^\s]+)/g;
+    const formattedContent = questionContent.replace(linkRegex, (url) => {
+      return `<a href="${url}" target="_blank">${url}</a>`;
+    });
+
+    return (
+      <Typography variant='h5' dangerouslySetInnerHTML={{ __html: formattedContent }} />
+    );
   };
 
   React.useEffect(() => {
     let token = localStorage.getItem('token');
     if (token) {
-      // Fetch additional data from the server when token exists
       fetch(`${backendURL}/admin/questions`, {
         method: 'GET',
         headers: {
@@ -62,10 +66,8 @@ const Questions = () => {
           return res.json();
         })
         .then((data) => {
-          // Update state with user data
           setQue(data.questions);
           setIsLoading(false);
-          console.log(isLoading)
         })
         .catch((error) => {
           setIsLoading(false);
@@ -113,7 +115,7 @@ const Questions = () => {
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
               }}
             >
-              <Typography variant='h5' dangerouslySetInnerHTML={{ __html: makeLinksClickable(questionData.question) }} />
+              {renderQuestion(questionData)}
               <div style={{ margin: '20px' }}>
                 {questionData.options.map((option, index) => (
                   <div key={questionData.id} style={{ marginBottom: '10px' }}>
@@ -133,32 +135,21 @@ const Questions = () => {
                   variant='outlined'
                   onClick={(e) => {
                     const fileInfo = JSON.parse(e.currentTarget.getAttribute('data-key'));
-                  
-                    // Accessing the buffer from the fileInfo object
                     const pdfBuffer = fileInfo.buffer.data;
-                  
-                    // Creating a Blob from the buffer
                     const blob = new Blob([Uint8Array.from(pdfBuffer)], { type: fileInfo.mimetype });
-                  
-                    // Creating a URL for the Blob
                     const url = window.URL.createObjectURL(blob);
-                  
-                    // Opening a new window with the PDF
                     const newWindow = window.open(url, '_blank');
-                  
-                    // Cleanup
                     window.URL.revokeObjectURL(url);
-                  }}                  
-                  
+                  }}
                 >
                   View Solution PDF
                 </Button>
                 <Button
                   style={{
-                    marginLeft:'10px',
+                    marginLeft: '10px',
                   }}
                   variant='outlined'
-                  data-key={questionData._id+""}
+                  data-key={questionData._id + ''}
                   onClick={handleDeleteQuestion}
                 >
                   Delete

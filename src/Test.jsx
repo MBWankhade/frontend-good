@@ -36,9 +36,18 @@ const Test = () => {
       });
   }, []);
 
-  const makeLinksClickable = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, (url) => `<a href="${url}" target="_blank">${url}</a>`);
+  const renderQuestion = (questionData) => {
+    const questionContent = questionData.question;
+
+    // Regular expression to find links in the text
+    const linkRegex = /(https?:\/\/[^\s]+)/g;
+    const formattedContent = questionContent.replace(linkRegex, (url) => {
+      return `<a href="${url}" target="_blank">${url}</a>`;
+    });
+
+    return (
+      <Typography variant='h5' dangerouslySetInnerHTML={{ __html: formattedContent }} />
+    );
   };
 
   return (
@@ -58,11 +67,9 @@ const Test = () => {
         Seize the advantage! While others sleep, unlock your potential with the ultimate test experience. Stay ahead of the curve – the journey to success begins now!
       </Typography>
 
-      {isLoading ? (
-        <CircularProgress color='secondary' />
-      ) : (
+      {!isLoading ? (
         <>
-          {que.slice().reverse().map((questionData, index)) => (
+          {que.slice().reverse().map((questionData, index) => (
             <div
               key={index}
               style={{
@@ -73,10 +80,7 @@ const Test = () => {
                 boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
               }}
             >
-              <Typography
-                variant='h5'
-                dangerouslySetInnerHTML={{ __html: makeLinksClickable(questionData.question) }}
-              />
+              {renderQuestion(questionData)}
               <div style={{ margin: '20px' }}>
                 {questionData.options.map((option, index) => (
                   <div key={questionData.id} style={{ marginBottom: '10px' }}>
@@ -119,6 +123,8 @@ const Test = () => {
             </div>
           ))}
         </>
+      ) : (
+        <CircularProgress color='secondary' />
       )}
     </div>
   );
