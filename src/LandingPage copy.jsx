@@ -1,12 +1,8 @@
-// LandingPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import Paper from '@mui/material/Paper';
 import { useNavigate, Link } from 'react-router-dom';
-import './landing.css'; // Import the custom CSS file
 
 const backendURL = 'https://backend-platform-oxxu.onrender.com';
 
@@ -62,12 +58,14 @@ const LandingPage = () => {
       "Creativity is the key to success in the future, and primary education is where teachers can bring creativity to children at that level. - A. P. J. Abdul Kalam",
       
     ];
+
     const getRandomQuote = () => {
       const randomIndex = Math.floor(Math.random() * quotes.length);
       return quotes[randomIndex];
     };
 
     if (token) {
+      // ... (your existing code for fetching user data)
       fetch(`${backendURL}/admin`, {
         method: 'GET',
         headers: {
@@ -97,101 +95,118 @@ const LandingPage = () => {
   }, [token]);
 
   return (
-    <div className="container">
-      <Paper elevation={3} className="paper">
-        {isLoading ? (
-          <div style={{ textAlign: 'center', marginTop: '50px' }}>
-            <CircularProgress color="primary" />
-          </div>
-        ) : (
-          <div>
-            {userData ? (
-              <div>
-                <div className="headerlanding">
-                  <Typography variant="h6" className="welcome-text">
-                    Welcome, {userData.user.username}!
-                  </Typography>
-                  <Button
-                    onClick={() => {
-                      localStorage.removeItem('token');
-                      setUserData(null);
-                      navigate('/');
-                    }}
-                    variant="outlined"
-                    className="logout-button"
-                  >
-                    Logout
-                  </Button>
-                </div>
-
-                <div className="action-buttons">
-
-                  <Link
-                    to={`/admins/getAllDates`}
-                    className="admin-link"
-                    style={{ textDecoration: 'none', width: '100%' }}
-                  >
-                    <Button variant="contained" className="test-button">
-                      Start a Test
-                    </Button>
-                  </Link>
-
-                  <Link
-                    to={`/admins/protectedRoute/${userData.user._id}/${userData.user.username}`}
-                    className="admin-link"
-                    style={{ textDecoration: 'none', width: '100%' }}
-                  >
-                    <Button variant="contained" className="link-button">
-                      Manage Your Questions
-                    </Button>
-                  </Link>
-
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      navigate('/displayAdmins');
-                    }}
-                    className="browse-button"
-                  >
-                    Browse Questions
-                  </Button>
-
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      navigate('/addquestions');
-                    }}
-                    className="add-question-button"
-                  >
-                    Add Questions
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className="login-section">
+    <div style={{ padding: '20px' }}>
+      {isLoading ? (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <div>
+          {userData ? (
+            <div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '10px',
+                  borderBottom: '1px solid #ccc',
+                  marginBottom: '20px',
+                  backgroundColor: '#f8f8f8',
+                }}
+              >
+                <Typography variant='h6' style={{ color: '#333' }}>
+                  Welcome, {userData.user.username}!
+                </Typography>
                 <Button
                   onClick={() => {
-                    navigate('/login');
+                    localStorage.removeItem('token');
+                    setUserData(null);
+                    navigate('/');
                   }}
-                  variant="outlined"
-                  className="login-button"
+                  variant='outlined'
+                  style={{ color: '#d32f2f', borderColor: '#d32f2f' }}
                 >
-                  Login
+                  Logout
                 </Button>
-                <Typography variant="body1" style={{ marginBottom: '20px', color: '#555' }}>
-                  To Access, Please Login Using Your Credentials
-                </Typography>
               </div>
-            )}
-          </div>
-        )}
 
-        <div className="motivational-quote">
-          <Typography variant="body1" className="italic-text">
-            "{motivationalQuote}"
-          </Typography>
+              <div style={{ textAlign: 'center', marginTop: '5%' }}>
+                <Button
+                  variant='contained'
+                  onClick={() => {
+                    navigate('/test');
+                  }}
+                  style={{ backgroundColor: '#4caf50', color: '#fff', marginBottom: '20px' }}
+                >
+                  Want To Give Test
+                </Button>
+
+                <Typography style={{ marginBottom: '10px' }}>OR</Typography>
+
+                <li key={userData.user._id} className="admin-item">
+                  <Link to={`/admins/protectedRoute/${userData.user._id}/${userData.user.username}`} className="admin-link">
+                    View Or Delete Questions Added By You
+                  </Link>
+                </li>
+
+                <Typography style={{ marginBottom: '10px' }}>OR</Typography>
+
+                <Button
+                  variant='contained'
+                  onClick={() => {
+                    navigate('/displayAdmins');
+                  }}
+                  style={{ backgroundColor: '#2196f3', color: '#fff', marginTop: '10px' }}
+                >
+                  Browse Questions
+                </Button>
+
+                <Typography style={{ marginBottom: '10px' }}>OR</Typography>
+
+                <Button
+                  variant='contained'
+                  onClick={() => {
+                    navigate('/addquestions');
+                  }}
+                  style={{ backgroundColor: '#ff9800', color: '#fff', marginTop: '10px' }}
+                >
+                  Add Questions
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+              <Button
+                onClick={() => {
+                  navigate('/login');
+                }}
+                variant='outlined'
+                style={{ color: '#2196f3', borderColor: '#2196f3', marginBottom: '20px' }}
+              >
+                Login
+              </Button>
+              <Typography variant='body1'>
+                To Access, Please Login Using Your Credentials
+              </Typography>
+            </div>
+          )}
         </div>
-      </Paper>
+      )}
+
+      <div
+        style={{
+          marginTop: '20px',
+          textAlign: 'center',
+          padding: '15px',
+          backgroundColor: '#f3f3f3',
+          borderRadius: '8px',
+        }}
+      >
+        <Typography variant='body1' style={{ fontStyle: 'italic', color: '#333' }}>
+          "{motivationalQuote}"
+        </Typography>
+      </div>
     </div>
   );
 };

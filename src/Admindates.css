@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #ecf0f1; /* Background color for the entire page */
+  }
+  
+  .dates-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #ff8e3b, #ff5e62); /* Gradient background with warm colors */
+    color: #2c3e50; /* Text color */
+    text-align: center;
+    overflow: hidden;
+    transition: background 0.5s ease-in-out; /* Smooth transition for background color */
+  }
+  
+  .dates-container:hover {
+    background: linear-gradient(45deg, #ff5e62, #ff8e3b); /* Adjusted background color on hover */
+  }
+  
+  h2 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    transition: color 0.5s ease-in-out; /* Smooth transition for text color */
+  }
+  
+  .dates-container:hover h2 {
+    color: #fff; /* Adjusted text color on hover */
+  }
+  
+  .dates-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .date-item {
+    margin: 20px;
+    background: linear-gradient(45deg, #ffffff, #f2f4f7); /* Subtle gradient background */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
+    transition: transform 0.3s ease-in-out;
+    min-width: 300px;
+    text-align: center;
+  }
+  
+  .date-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .date-link {
+    color: #ff8e3b;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  /* Add responsive styles */
+  @media (max-width: 600px) {
+    .dates-container, .admins-container {
+      padding: 20px;
+    }
+    h2 {
+      font-size: 36px;
+    }
+    .date-item, .admin-item {
+      min-width: calc(100% - 40px);
+    }
+  }
+  

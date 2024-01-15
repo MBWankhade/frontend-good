@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7f7f7; /* Light background color */
+  }
+  
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #FFB6C1, #87CEEB); /* Gradient background with pastel colors */
+    color: #333; /* Text color */
+    text-align: center;
+    overflow: hidden;
+    transition: background 0.5s ease-in-out; /* Smooth transition for background color */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Soft box shadow */
+  }
+  
+  .container:hover {
+    background: linear-gradient(135deg, #FF69B4, #6495ED); /* Adjusted background color on hover */
+  }
+  
+  .headerlanding {
+    margin-bottom: 30px;
+    transition: color 0.5s ease-in-out; /* Smooth transition for text color */
+  }
+  
+  .container:hover .headerlanding {
+    color: #fff; /* Adjusted text color on hover */
+  }
+  
+  .paper {
+    padding: 30px;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Lighter box shadow */
+    transition: transform 0.3s ease-in-out;
+    min-width: 300px;
+    text-align: center;
+  }
+  
+  .paper:hover {
+    transform: scale(1.05);
+  }
+  
+  .action-buttons button {
+    margin: 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff; /* Text color for buttons */
+    border: none;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .action-buttons .test-button {
+    background-color: #FF6F61; /* Coral button color */
+  }
+  
+  .action-buttons .link-button {
+    background-color: #65AEDD; /* Sky blue button color */
+  }
+  
+  .action-buttons .browse-button {
+    background-color: #4B0082; /* Indigo button color */
+  }
+  
+  .action-buttons .add-question-button {
+    background-color: #FFD700; /* Gold button color */
+  }
+  
+  .action-buttons button:hover {
+    transform: scale(1.1);
+  }
+  
+  .login-section {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .login-button {
+    color: #fff;
+    background-color: #70BF41; /* Lime green button color */
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .login-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .motivational-quote {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff; /* White background */
+    border-radius: 8px;
+  }
+  
+  .italic-text {
+    font-style: italic;
+    color: #555; /* Darker gray for italic text */
+  }
+
+  
+  

@@ -1,17 +1,21 @@
+// Questack.js
+
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { CircularProgress, Typography, Button } from '@mui/material';
-import './Test.css'; // Import a separate CSS file for styling
+import './Questack.css'; // Import a separate CSS file for styling
 
 const backendURL = 'https://backend-platform-oxxu.onrender.com';
 
-const Test = () => {
-  const [isLoading, setIsLoading] = useState(true);
+const Allquestack = () => {
+  const { date } = useParams();
   const [questions, setQuestions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`${backendURL}/admin/getAllQuestions`, {
+        const response = await fetch(`${backendURL}/admin/getAllQuestions/notProtected?date=${date}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -33,7 +37,7 @@ const Test = () => {
     };
 
     fetchQuestions();
-  }, []);
+  }, [date]);
 
   const renderQuestion = (questionData) => {
     const questionContent = questionData.question;
@@ -48,18 +52,12 @@ const Test = () => {
   };
 
   return (
-    <div className="test-container">
-      <Typography
-        className="header"
-        variant='h4'
-      >
-        Seize the advantage! While others sleep, unlock your potential with the ultimate test experience. Stay ahead of the curve – the journey to success begins now!
-      </Typography>
-
+    <div className="questack-container">
+      <h2 className="header">Questions Added By All on {date}</h2>
       {isLoading ? (
         <CircularProgress className="loading-spinner" color="secondary" />
       ) : (
-        <div className="questions-list">
+        <ul className="questions-list">
           {questions.slice().reverse().map((questionData, index) => (
             <div
               key={index}
@@ -68,7 +66,7 @@ const Test = () => {
               {renderQuestion(questionData)}
               <div className="options-container">
                 {questionData.options.map((option, index) => (
-                  <div key={index} className="option-item">
+                  <div key={questionData.id} className="option-item">
                     <input type='radio' id={`option${index}`} name='options' />
                     <label
                       htmlFor={`option${index}`}
@@ -98,10 +96,10 @@ const Test = () => {
               </div>
             </div>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );
 };
 
-export default Test;
+export default Allquestack;

@@ -1,0 +1,96 @@
+/* Questack.css */
+
+.questack-container {
+    padding: 30px;
+    background: linear-gradient(135deg, #4a69bb, #8e44ad);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header {
+    color: #fff;
+    font-size: 3.5em;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .admin-name {
+    color: #1abc9c;
+  }
+  
+  .loading-spinner {
+    margin: 30px auto;
+  }
+  
+  .questions-list {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .question-card {
+    border: none;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #f0f0f0, #ffffff);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  .question-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .question-text {
+    font-size: 2.2em;
+    color: #e74c3c;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  
+  .options-container {
+    margin: 25px 0;
+  }
+  
+  .option-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .option-item input {
+    margin-right: 10px;
+  }
+  
+  .option-label {
+    font-size: 1.4em;
+    color: #3498db;
+  }
+  
+  .solution-button {
+    margin-top: 20px;
+  }
+  
+  .solution-button button {
+    background: linear-gradient(45deg, #8e44ad, #3498db);
+    color: #fff;
+    border: none;
+    padding: 18px 28px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.3em;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .solution-button button:hover {
+    background: linear-gradient(45deg, #3498db, #8e44ad);
+  }
+  
