@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Paper from '@mui/material/Paper';
 import { useNavigate, Link } from 'react-router-dom';
-import './landing.css'; // Import the custom CSS file
+import './Landing.css'; // Import the custom CSS file
 
 const backendURL = 'https://backend-platform-oxxu.onrender.com';
 
