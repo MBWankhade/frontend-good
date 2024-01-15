@@ -114,6 +114,9 @@ const Protectedquestack = () => {
                     const newWindow = window.open(url, '_blank');
                     window.URL.revokeObjectURL(url);
                   }}
+                  style={{
+                    marginRight:'10px'
+                  }}
                 >
                   View Solution PDF
                 </Button>
